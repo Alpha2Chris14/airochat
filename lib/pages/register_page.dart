@@ -2,19 +2,24 @@ import 'package:airochat/component/my_button.dart';
 import 'package:airochat/component/my_text_field.dart';
 import 'package:flutter/material.dart';
 
-class LoginPage extends StatefulWidget {
+class RegisterPage extends StatefulWidget {
   final void Function()? onTap;
-  const LoginPage({super.key, required this.onTap});
+  const RegisterPage({
+    super.key,
+    required this.onTap,
+  });
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<RegisterPage> createState() => _RegisterPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _RegisterPageState extends State<RegisterPage> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+  final confirmPasswordController = TextEditingController();
 
-  void signIn() {}
+  //sign up function
+  void signUp() {}
 
   @override
   Widget build(BuildContext context) {
@@ -40,9 +45,9 @@ class _LoginPageState extends State<LoginPage> {
 
                   const SizedBox(height: 50),
 
-                  // welcome back message
+                  // Let's create an account for you!
                   const Text(
-                    "Welcome back you've been missed",
+                    "Let's create an account for you!",
                     style: TextStyle(
                       fontSize: 16,
                     ),
@@ -66,22 +71,31 @@ class _LoginPageState extends State<LoginPage> {
                     obsureText: true,
                   ),
 
+                  const SizedBox(height: 10),
+
+                  // password textfield
+                  MyTextField(
+                    controller: confirmPasswordController,
+                    hintText: 'confirm password',
+                    obsureText: true,
+                  ),
+
                   const SizedBox(height: 25),
 
                   // sign in button
-                  MyButton(onTap: signIn, text: "Sign In"),
+                  MyButton(onTap: signUp, text: "Sign Up"),
 
                   const SizedBox(height: 25),
                   // not a member? register
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const Text("Not a member? "),
+                      const Text("Already a member? "),
                       const SizedBox(width: 4),
                       GestureDetector(
                         onTap: widget.onTap,
                         child: const Text(
-                          'Register now',
+                          'Login now',
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                           ),

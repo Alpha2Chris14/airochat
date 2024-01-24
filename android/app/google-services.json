@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "903011201277",
+    "project_id": "chatauth-3d0e7",
+    "storage_bucket": "chatauth-3d0e7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:903011201277:android:387b34c4efd1215fa34e94",
+        "android_client_info": {
+          "package_name": "com.example.airochat"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCsiRo3z0OoGJC7kokuOTNUZqjiEtBS3aA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
