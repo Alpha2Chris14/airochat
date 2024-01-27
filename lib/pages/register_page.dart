@@ -1,5 +1,6 @@
 import 'package:airochat/component/my_button.dart';
 import 'package:airochat/component/my_text_field.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class RegisterPage extends StatefulWidget {
@@ -19,7 +20,23 @@ class _RegisterPageState extends State<RegisterPage> {
   final confirmPasswordController = TextEditingController();
 
   //sign up function
-  void signUp() {}
+  void signUp() async {
+    try {
+      final credential =
+          await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email: emailController.text,
+        password: passwordController.text,
+      );
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'weak-password') {
+        print('The password provided is too weak.');
+      } else if (e.code == 'email-already-in-use') {
+        print('The account already exists for that email.');
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -66,7 +83,7 @@ class _RegisterPageState extends State<RegisterPage> {
 
                   // password textfield
                   MyTextField(
-                    controller: emailController,
+                    controller: passwordController,
                     hintText: 'password',
                     obsureText: true,
                   ),
