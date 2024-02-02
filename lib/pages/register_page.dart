@@ -22,7 +22,7 @@ class _RegisterPageState extends State<RegisterPage> {
   //sign up function
   void signUp() async {
     try {
-      final credential =
+      final credentials =
           await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: emailController.text,
         password: passwordController.text,
