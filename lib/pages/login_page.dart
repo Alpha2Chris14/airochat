@@ -26,8 +26,7 @@ class _LoginPageState extends State<LoginPage> {
         });
     //tr signing in
     try {
-      final credential =
-          await FirebaseAuth.instance.createUserWithEmailAndPassword(
+      final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: emailController.text,
         password: passwordController.text,
       );
@@ -37,6 +36,7 @@ class _LoginPageState extends State<LoginPage> {
       } else if (e.code == 'email-already-in-use') {
         print('The account already exists for that email.');
       }
+      Navigator.of(context).pop();
     } catch (e) {
       print(e);
     }
