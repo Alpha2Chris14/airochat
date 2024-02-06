@@ -1,6 +1,8 @@
 import 'package:airochat/component/my_button.dart';
 import 'package:airochat/component/my_text_field.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
 class RegisterPage extends StatefulWidget {
@@ -18,7 +20,7 @@ class _RegisterPageState extends State<RegisterPage> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final confirmPasswordController = TextEditingController();
-
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   //sign up function
   void signUp() async {
     try {
@@ -27,6 +29,10 @@ class _RegisterPageState extends State<RegisterPage> {
         email: emailController.text,
         password: passwordController.text,
       );
+      _firestore.collection('users').doc(credentials.user!.uid).set({
+        'uid': credentials.user!.uid,
+        'email': credentials.user!.email,
+      });
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         print('The password provided is too weak.');

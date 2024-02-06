@@ -37,6 +37,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   firebase_auth: ^4.16.0
   firebase_core: ^2.24.2
+  cloud_firestore: ^4.15.4
 license: MIT  # Replace with the license you are using
 include: 
   - LICENSE.md

@@ -1,5 +1,6 @@
 import 'package:airochat/component/my_button.dart';
 import 'package:airochat/component/my_text_field.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -14,6 +15,7 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   void signIn() async {
     //show loading circle
@@ -26,10 +28,15 @@ class _LoginPageState extends State<LoginPage> {
         });
     //tr signing in
     try {
-      final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
+      final credentials =
+          await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: emailController.text,
         password: passwordController.text,
       );
+      _firestore.collection('users').doc(credentials.user!.uid).set({
+        'uid': credentials.user!.uid,
+        'email': credentials.user!.email,
+      }, SetOptions(merge: true));
       Navigator.of(context).pop();
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
