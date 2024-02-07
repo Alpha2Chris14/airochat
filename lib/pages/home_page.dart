@@ -1,3 +1,4 @@
+import 'package:airochat/pages/chat_page.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -78,10 +79,21 @@ class _HomePageState extends State<HomePage> {
     Map<String, dynamic> data = document.data()! as Map<String, dynamic>;
     if (_auth.currentUser!.email != data['email']) {
       return ListTile(
-        title: data['email'],
-        onTap: () {},
+        title: Text(data['email']),
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => ChatPage(
+                recieverUserEmail: data['email'],
+                recieverUserID: data['uid'],
+              ),
+            ),
+          );
+        },
       );
+    } else {
+      return Container();
     }
-    return Text("Not Found");
   }
 }
