@@ -1,3 +1,4 @@
+import 'package:airochat/component/chat_bubble.dart';
 import 'package:airochat/component/my_text_field.dart';
 import 'package:airochat/services/chat/chat_service.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -68,6 +69,9 @@ class _ChatPageState extends State<ChatPage> {
           ),
           //user input
           _buildMessageInput(),
+          const SizedBox(
+            height: 25,
+          ),
         ],
       ),
     );
@@ -116,7 +120,10 @@ class _ChatPageState extends State<ChatPage> {
                     : MainAxisAlignment.start,
             children: [
               Text(data['senderEmail']),
-              Text(data['message']),
+              const SizedBox(
+                height: 5,
+              ),
+              ChatBubble(message: data['message']),
             ],
           ),
         ));
@@ -124,25 +131,28 @@ class _ChatPageState extends State<ChatPage> {
 
   //build message input
   Widget _buildMessageInput() {
-    return Row(
-      children: [
-        //textfield
-        Expanded(
-          child: MyTextField(
-            controller: _messageController,
-            hintText: "Enter Message",
-            obsureText: false,
+    return Padding(
+      padding: const EdgeInsets.all(25.0),
+      child: Row(
+        children: [
+          //textfield
+          Expanded(
+            child: MyTextField(
+              controller: _messageController,
+              hintText: "Enter Message",
+              obsureText: false,
+            ),
           ),
-        ),
-        //send button
-        IconButton(
-          onPressed: sendMessage,
-          icon: const Icon(
-            Icons.arrow_upward,
-            size: 40,
-          ),
-        )
-      ],
+          //send button
+          IconButton(
+            onPressed: sendMessage,
+            icon: const Icon(
+              Icons.arrow_upward,
+              size: 40,
+            ),
+          )
+        ],
+      ),
     );
   }
 }
